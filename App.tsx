@@ -1,32 +1,20 @@
-import React, { useState } from 'react'
-import { Button, Text, View } from 'react-native'
-import DatePicker from 'react-native-date-picker'
+import { NavigationContainer } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import React from 'react'
+import { TailwindProvider } from 'tailwindcss-react-native'
+import Home from 'screens/Home'
 
-export default function App() {
-  const [date, setDate] = useState(new Date())
-  const [open, setOpen] = useState(false)
-
+const App = () => {
+  const Stack = createNativeStackNavigator()
   return (
-    <View style={{
-      flex: 1,
-      alignItems: "center",
-      justifyContent: "center",
-      backgroundColor: "#fff"
-    }}>
-      <Text style={{ color: "red" }}>{date + ""}</Text>
-      <Button title="Open" onPress={() => setOpen(true)} />
-      <DatePicker
-        modal
-        open={open}
-        date={date}
-        onConfirm={(date) => {
-          setOpen(false)
-          setDate(date)
-        }}
-        onCancel={() => {
-          setOpen(false)
-        }}
-      />
-    </View>
+    <NavigationContainer>
+      <TailwindProvider>
+        <Stack.Navigator initialRouteName='Home'>
+          <Stack.Screen component={Home} name="Home" />
+        </Stack.Navigator>
+      </TailwindProvider>
+    </NavigationContainer>
   )
 }
+
+export default App
